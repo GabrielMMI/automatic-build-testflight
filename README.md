@@ -15,27 +15,27 @@ Após instalar este projeto na pasta raiz do seu projeto, abra o terminal no dir
 
 Gerar a build CaixaMaisDev para o Testflight com incremento da build automático:
 ```sh
-$ makefile testflight_pf
+$ make testflight_pf
 ```
 
 Podendo passar o número da build que será gerado:
 ```sh
-$ makefile testflight_pf buildPF=${NUMERO_BUILD}
+$ make testflight_pf buildPF=${NUMERO_BUILD}
 ```
 
 Do mesmo modo, é possível gerar a build CaixaMaisEmpresaDev para o Testflight com incremento da build automático:
 ```sh
-$ makefile testflight_pj
+$ make testflight_pj
 ou
-$ makefile testflight_pj buildPF=${NUMERO_BUILD}
+$ make testflight_pj buildPF=${NUMERO_BUILD}
 ```
 
 Tambem sendo possível gerar as 2 builds de forma sequencial, ao submeter a build PF para a App Store, a build PJ começa a ser gerada, podendo ou não (incremento automático) passar o número da build.
 
 ```sh
-$ makefile testeflight_pf_pj
+$ make testeflight_pf_pj
 ou
-$ makefile testeflight_pf_pj buildPF=${NUMERO_BUILD_PF} buildPJ=${NUMERO_BUILD_PJ}
+$ make testeflight_pf_pj buildPF=${NUMERO_BUILD_PF} buildPJ=${NUMERO_BUILD_PJ}
 ```
 
 
