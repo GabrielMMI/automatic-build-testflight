@@ -1,0 +1,24 @@
+BUILD_NUMBER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" $2)
+
+if [ -z "$3" ]
+then
+	if [[ $BUILD_NUMBER == '$(CURRENT_PROJECT_VERSION)' ]]; then
+	    BUILD_NUMBER=$(xcodebuild -project app/CaixaMais/CaixaMais.xcodeproj -scheme $1 -showBuildSettings | grep "CURRENT_PROJECT_VERSION" | sed 's/[ ]*CURRENT_PROJECT_VERSION = //')
+	fi
+
+	NEXT_BUILD_NUMBER=$(expr $BUILD_NUMBER + 1)
+
+else
+	BUILD_NUMBER=$3
+	NEXT_BUILD_NUMBER=$3
+fi
+
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $NEXT_BUILD_NUMBER" $2
+
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo "${YELLOW}-------------------------------------"
+echo "Target: $1"
+echo "Build: ${NEXT_BUILD_NUMBER} "
+echo "-------------------------------------${NC}"
