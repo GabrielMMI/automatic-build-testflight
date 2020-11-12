@@ -6,51 +6,62 @@ Este projeto foi feito utilizando a Command Line Tools do Xcode.
 
 ### Instalação
 
-1. Clone este projeto na pasta raiz do Caixa+.
-2. That`s it.
+Obs.1: Todos os paths tem como referencia o diretório do arquivo `Makefile` como "raiz".
+
+1. Clone este projeto em uma pasta aleatória
+2. Execute o arquivo `install_files`
+3. Informe o path onde deseja instalar os arquivos
+4. Abra o arquivo `Makefile` que foi instalado no path informado no passo anterior
+5. Altere os seguintes campos:
+```sh
+PLIST = #{Path até a plist do seu projeto. Ex: app/projeto/info.plist}
+SCHEME = #{Nome do Scheme do seu projeto}
+
+PROJECT_PATH = #{Path até chegar no arquivo .workspace. Ex: app/projeto}
+PROJECT_NAME = #{Nome do projeto que dará o nome do .workspace. Ex: "NomeProjeto".workspace}
+PROJECT_DISPLAY_NAME = #{Nome do projeto localizado no campo "Display Name" no Target do projeto}
+
+EXPORT_OPTIONS_PLIST = #{Nome da plist de opções de exportação. Ex: exportOptions.plist}
+
+ARCHIVE_PATH = .archives #{Nome da pasta onde será salvo os arquivos gerados .xcarchive e .ipa. Por default é usado a pasta invisível ".archives"}
+ARCHIVE_SCHEME_FOLDER = #{Nome da pasta localizada dentro ARCHIVE_PATH para organização da pasta .archives}
+
+USERNAME = #{Apple Id da conta que será enviado o archive. Ex: email@email.com}
+PASSWORD = #{Senha específica do app gerada no site https://appleid.apple.com/ . Ex: xxxx-xxxx-xxxx-xxxx}
+```
+6. That's it.
 
 ### Uso
 
-Após instalar este projeto na pasta raiz do seu projeto, abra o terminal no diretório da pasta raiz do Caixa+, use os comando `makefile`:
+Após instalar este projeto na pasta raiz do seu projeto, abra o terminal no path que foi passado no arquivo `install_files`, sempre estando no mesmo diretório do arquivo `Makefile`, use o comando `make`:
 
-Gerar a build CaixaMaisDev para o Testflight com incremento da build automático:
+Para gerar a build para o Testflight com incremento da build automático:
 ```sh
-$ make testflight_pf
+$ make testflight
 ```
 
-Podendo passar o número da build que será gerado:
+Pode-se passar o número da build que será gerado:
 ```sh
-$ make testflight_pf buildPF=${NUMERO_BUILD}
-```
-
-Do mesmo modo, é possível gerar a build CaixaMaisEmpresaDev para o Testflight com incremento da build automático:
-```sh
-$ make testflight_pj
-ou
-$ make testflight_pj buildPF=${NUMERO_BUILD}
-```
-
-Tambem sendo possível gerar as 2 builds de forma sequencial, ao submeter a build PF para a App Store, a build PJ começa a ser gerada, podendo ou não (incremento automático) passar o número da build.
-
-```sh
-$ make testeflight_pf_pj
-ou
-$ make testeflight_pf_pj buildPF=${NUMERO_BUILD_PF} buildPJ=${NUMERO_BUILD_PJ}
+$ make testflight build=#{NUMERO_BUILD}
+Exemplo:
+$ make testflight build=12
 ```
 
 
 ### Como Funciona
 
-Ao rodar o comando `makefile testflight_pf`, são executados os seguintes comandos:
+Ao rodar o comando `make testflight`, são executados os seguintes comandos:
 
-- `make increment_build_pf buildPF=${NUMERO_BUILD_PF}`-> esse comando executa um script (localizado na pasta `.scripts`) para incrementar a build do projeto automaticamente, podendo passar o número da build ou não.
+- `make increment_build build=${NUMERO_BUILD}`-> esse comando executa um script (localizado na pasta `.scripts`) para incrementar a build do projeto automaticamente, podendo passar o número da build ou não.
 
-- `make clean_project_pf`-> esse comando limpa o projeto.
+- `make clean_project`-> esse comando limpa o projeto.
 
-- `make clean_archive_folder_pf`-> esse comando limpa a pasta de archive, sempre mantendo o último archive gerado, limpando a pasta `.archives`.
+- `make clean_archive_folder`-> esse comando limpa a pasta de archive (`.archives` ou nos novos diretorios informados no campo `ARCHIVE_PATH`).
 
-- `make archive_pf` -> esse comando gera o archive do projeto selecionado na pasta `.archives/buildPF` para PF e `.archives/buildPJ` para PJ
+- `make archive` -> esse comando gera o archive (`.xcarchive`) do projeto selecionado na pasta `ARCHIVE_PATH/ARCHIVE_SCHEME_FOLDER`
 
-- `make export_ipa_pf` -> esse comando gera o arquivo `.ipa`.
+- `make export_ipa` -> esse comando gera o arquivo `.ipa` na pasta `ARCHIVE_PATH/ARCHIVE_SCHEME_FOLDER`.
 
-- `make publish_app_pf` -> esse comando envia o arquivo `.ipa` para a App Store, assim iniciando o processamento para o Testflight.
+- `make publish_app` -> esse comando envia o arquivo `.ipa` para a App Store, assim iniciando o processamento para o Testflight.
+
+Obs.2: cada comando pode ser executado separadamente.

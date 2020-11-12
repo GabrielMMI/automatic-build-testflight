@@ -1,0 +1,10 @@
+#!/bin/bash
+
+printf "Informe o path onde será instalado: "
+
+DIR="$(cd "$(dirname "$0")" && pwd)"
+cd ${DIR}
+
+read PATH
+
+/usr/bin/unzip files.zip -d ${PATH}
