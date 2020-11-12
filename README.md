@@ -8,11 +8,12 @@ Este projeto foi feito utilizando a Command Line Tools do Xcode.
 
 Obs.1: Todos os paths tem como referencia o diretório do arquivo `Makefile` como "raiz".
 
-1. Clone este projeto em uma pasta aleatória
-2. Execute o arquivo `install_files`
-3. Informe o path onde deseja instalar os arquivos
-4. Abra o arquivo `Makefile` que foi instalado no path informado no passo anterior
-5. Altere os seguintes campos:
+1. Clone este projeto em uma pasta aleatória.
+2. Execute o arquivo `install_files`.
+3. Informe o path onde deseja instalar os arquivos.
+4. Abra o arquivo `Makefile` que foi instalado no path informado no passo anterior.
+5. Coloque o arquivo `exportOptions.plist` dentro da pasta do projeto, junto com o `.workspace` e faça as alterações necessárias **caso seu projeto ainda não tenha esse arquivo**.
+6. Altere os seguintes campos:
 ```sh
 PLIST = #{Path até a plist do seu projeto. Ex: app/projeto/info.plist}
 SCHEME = #{Nome do Scheme do seu projeto}
@@ -29,7 +30,7 @@ ARCHIVE_SCHEME_FOLDER = #{Nome da pasta localizada dentro ARCHIVE_PATH para orga
 USERNAME = #{Apple Id da conta que será enviado o archive. Ex: email@email.com}
 PASSWORD = #{Senha específica do app gerada no site https://appleid.apple.com/ . Ex: xxxx-xxxx-xxxx-xxxx}
 ```
-6. That's it.
+7. That's it.
 
 ### Uso
 
